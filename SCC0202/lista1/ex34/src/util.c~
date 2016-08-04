@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <utils.h>
+
+char *readLine() {
+  int couter = 0;
+  char c;
+  char *string = NULL;
+
+  do {
+    c = fgetc(stdin);
+
+    string = (char *)realloc(string, sizeof(char)*(counter+1));
+    string[counter++] = c;
+    
+  } while (c != '\n');
+  string[counter-1] = '\0';
+
+  return string;
+  
+}
+
+// Calculates the length of the string pointed to, excluding the terminating null byte ('\0).
+int strlen(char *s) {
+  
+}
+
+// Return 1 if s1 is found in s2 and return 0 if s1 is not found.
+int strfind(char *s1, char *s2) {
+
+}
+
+// Compares two strings.
+int strcmp(char *s1, char *s2) {
+
+}
+
+// Appends the src string to the dest string, overwriting the terminating null bite and the adds
+//a terminating null byte.
+char *strcat(char *dest, char *src) {
+
+}
+

@@ -1,0 +1,59 @@
+// Escreva um programa que leia uma matriz nxm do usuário e a transforme em um vetor unidimensional
+//de n*m posições.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int **creatematrix(int col, int row) {
+  int i;
+  int **m;
+
+  m = (int **)malloc(sizeof(int *)*row);
+  for (i = 0; i < row; i++) 
+    m[i] = (int *)malloc(sizeof(int)*col);
+
+  return m;
+}
+
+void readMatrix(int **m, int col, int row) {
+  int i, j;
+
+  for (i = 0; i < row; i++) {
+    for (j = 0; j < col; j++) {
+      scanf("%d", &m[i][j]);
+    }
+  }
+
+  for (i = 0; i < row; i++) {
+    for (j = 0; j < col; j++) {
+      printf("%d", m[i][j]);
+    }
+  }
+}
+
+void freeMatrix(int **m, int row, int col) {
+  int i;
+
+  for (i = 0; i < row; i++) {
+    free(m[i]);
+    m[i] = NULL;
+  }
+  free(m);
+}
+
+int main(int argc, char *argv[]) {
+  int col, row;
+  int **mat;
+
+  printf("Digite a quantidade de colunas:\n");
+  scanf("%d", &col);
+
+  printf("Digite a quantidade de linhas:\n");
+  scanf("%d", &row);
+
+  mat = createMatrix(col, row);
+
+  free(mat);
+  
+  return 0;
+}

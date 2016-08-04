@@ -1,0 +1,14 @@
+#ifdef RACIONAL.H
+#define RACIONAL.H
+
+#define struct racional RACIONAL;
+
+RACIONAL create(int num, int den);
+
+void erase(RACIONAL **rac);
+
+int sum(RACIONAL rac1, RACIONAL rac2);
+
+void print(RACIONAL rac);
+
+#endif

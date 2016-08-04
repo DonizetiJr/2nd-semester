@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "racional.h"
+
+struct racional {
+  int numerador;
+  int denominador;
+};
+
+RACIONAL* create(int num, int den) {
+  RACIONAL* rac = (RACIONAL)malloc(sizeof(RACIONAL));
+
+  if (rac != NULL) {
+    rac->numerador = num;
+    rac->denominador = den;
+  }
+  
+  return rac;
+}
+
+void erase(RACIONAL **rac) {
+
+}
+
+int sum(RACIONAL *rac1, RACIONAL *rac2) {
+
+}
+
+void print(RACIONAL *rac) {
+
+}

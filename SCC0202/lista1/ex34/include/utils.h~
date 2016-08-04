@@ -1,0 +1,12 @@
+#infdef UTILS_H
+#include UTILS_H
+
+int strlen(char *);
+
+int strfind(char *, char *);
+
+int strcmp(char *, char *);
+
+char *strcat(char *, char *);
+
+#endif
