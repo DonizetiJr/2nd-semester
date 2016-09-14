@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void dec2bin_iterative(int n) {
+void dec2bin(int n) {
    int r, q;
    int *result = NULL;
    int counter = 0;
@@ -21,6 +21,8 @@ void dec2bin_iterative(int n) {
    result = (int *)realloc(result, sizeof(int)*(counter+1));
    result[counter++] = q;
 
+   printf("O número digitado em binário é:\n");
+
    while(--counter >= 0) {
       printf("%d", result[counter]);
    }
@@ -30,23 +32,13 @@ void dec2bin_iterative(int n) {
    result = NULL;
 }
 
-void dec2bin_recursive(int n) {
-  if(n == 0) return;
-
-  dec2bin_recursive(n/2);
-  printf("%d", n % 2);
-
-}
-
 int main(int argc, const char *argv[]) {
    int n;
 
+   printf("Digite um número:\n");
    scanf("%d", &n);
 
-   dec2bin_iterative(n);
-   
-   dec2bin_recursive(n);
-   printf("\n");
+   dec2bin(n);
 
    return 0;
 }

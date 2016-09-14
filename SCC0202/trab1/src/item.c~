@@ -1,0 +1,34 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <item.h>
+#include <string.h>
+
+ITEM *criar_item(char cpf[], char primeiro_nome[], char ultimo_nome[], char telefone[]) {
+  ITEM *item = (ITEM *)malloc(sizeof(ITEM));
+
+  if(item != NULL) {
+    strcpy(item->cpf,cpf);
+    strcpy(item->primeiro_nome,primeiro_nome);
+    strcpy(item->ultimo_nome, ultimo_nome);
+    strcpy(item->telefone, telefone);
+  }
+
+  return item;
+}
+
+void apagar_item(ITEM **item) {
+  if(item != NULL && *item != NULL) {
+    free(*item);
+    *item = NULL;
+  }
+}
+
+void imprimir_item(ITEM *item) {
+  if(item != NULL) {
+    printf("Primeiro Nome: %s\n", item->primeiro_nome);
+    printf("Ultimo Nome: %s\n", item->ultimo_nome);
+    printf("CPF: %s\n", item->cpf);
+    printf("Telefone: %s\n", item->telefone);
+    printf("-----------------------------\n");
+  }
+}

@@ -1,0 +1,58 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <listaestatica.h>
+#include <item.h>
+
+struct lista_estatica {
+  ITEM *itens[TAM];
+  int fim;
+};
+
+LISTA_ESTATICA *criar_lista() {
+  LISTA_ESTATICA *lista = (LISTA_ESTATICA *)malloc(sizeof(LISTA_ESTATICA));
+  lista->fim = -1;
+
+  return lista;
+}
+
+void apagar_lista(LISTA_ESTATICA **lista) {
+  int i;
+  if(*lista != NULL) {
+    for (i = 0; i < *lista->fim; i++) {
+	apagar_item(*lista->itens[i]);
+	*lista->itens[i] = NULL;
+    }
+    free(*lista);
+    *lista = NULL;
+  }
+}
+
+int vazia(LISTA_ESTATICA *lista){
+  if(lista != NULL) return 0;
+  return 1;
+}
+
+int cheia(LISTA_ESTATICA *lista) {
+  if(lista != NULL) {
+    if(lista->fim == TAM) return 1;
+    else return 0;
+  }
+  return 0;
+}
+
+int tamanho(LISTA_ESTATICA *lista){
+  if(lista != NULL) {
+    int tamanho;
+    tamanho = lista->fim + 1;
+    return tamanho;
+  }
+  return 0;
+}
+
+void print(LISTA_ESTATICA *lista){
+  if(lista != NULL) {
+    int i;
+    for (i = 0; i <= lista->fim; i++) 
+      printf("%d\n", lista->itens[i]);
+  }
+}

@@ -1,0 +1,19 @@
+#ifndef LISTAESTATICA_H
+#define LISTAESTATICA_H
+
+#include <item.h>
+
+#define TAM 100
+
+typedef struct lista_estatica LISTA_ESTATICA;
+
+LISTA_ESTATICA *criar_lista();
+void apagar_lista(LISTA_ESTATICA **lista);
+
+int vazia(LISTA_ESTATICA *lista);
+int cheia(LISTA_ESTATICA *lista);
+int tamanho(LISTA_ESTATICA *lista);
+void print(LISTA_ESTATICA *lista);
+
+
+#endif

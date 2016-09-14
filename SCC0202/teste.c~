@@ -1,0 +1,16 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char *argv[]) {
+  char cpf1[20];
+  char cpf2[20];
+
+  scanf("%s", cpf1);
+  scanf("%s", cpf2);
+
+  if(memcmp(cpf1, cpf2, sizeof(cpf1)))
+    printf("oi\n");
+  
+  return 0;
+}

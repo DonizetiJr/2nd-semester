@@ -1,5 +1,3 @@
-// Escreva uma função que receba um número positivo e imprima sua representação binária.
-
 #include <stdio.h>
 #include <stdlib.h>
 

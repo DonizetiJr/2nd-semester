@@ -1,0 +1,10 @@
+#include <stdio.h>
+#include <matriz_esparsa.h>
+
+int main(int argc, char *argv[]) {
+  MATRIZ_ESPARSA *m = criar_matriz(2,2);
+
+  apagar(&m);
+  
+  return 0;
+}
