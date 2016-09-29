@@ -1,0 +1,9 @@
+#include <pilha_estatica.h>
+
+int main(int argc, char *argv[]) {
+  PILHA_ESTATICA *pilha = criar_pilha_estatica();
+
+  apagar_pilha_estatica(pilha);
+  
+  return 0;
+}

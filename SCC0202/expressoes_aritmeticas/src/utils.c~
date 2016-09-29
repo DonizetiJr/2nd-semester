@@ -1,0 +1,43 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <item.h>
+#include <pilha_dinamica.h>
+#include <utils.h>
+
+void avalia_posfixa() {
+  PILHA_DINAMICA *pilha = criar_pilha_dinamica();
+  char str[] = "6 2 / 3 4 * + 3 -";
+
+  char *token = strtok(str, " ");
+  while (token != NULL) {
+    if (isdigit(token[0])) {
+      empilhar(pilha, criar_item(TIPO_INT, atoi(token)));
+    } else {
+      char n1 = desempilhar(pilha)->vint;
+      char n2 = desempilhar(pilha)->vint;
+    }
+  }
+  
+  apagar_pilha_dinamica(&pilha);
+} 
+
+void operacao(PILHA_DINAMICA *pilha, ITEM *n1, ITEM *n2, char op) {
+  if (pilha != NULL) {
+    switch(op) {
+
+    case '+': empilhar(pilha, criar_item(1, n1->vint + n2->vint));
+      break;
+    case '-':
+      empilhar(pilha, criar_item(1,n1->vint - n2->vint));
+      break;
+    case '*':
+      empilhar(pilha, criar_item(1, n1->vint * n2->vint));
+      break;
+    case '/':
+      empilhar(pilha, criar_item(1, n1->vint / n2->vint));
+      break;
+    }
+  }
+}
