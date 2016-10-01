@@ -16,17 +16,17 @@ int add_arrayList(ARRAY_LIST *arrayList, ITEM *element);
 /* Verifica no arraylist se existe um elemento com a chave informada */
 int contains_arrayList(ARRAY_LIST *arrayList, int key);
 
-/* Recupera um item na posição informada */
-ITEM *get_arrayList(ARRAY_LIST *arrayList, int pos);
+/* Imprime um item na posição informada */
+void get_arrayList(ARRAY_LIST *arrayList, int pos);
 
 /* Retorna qual a posiçao do primeiro elemento com a chave informada */
-int indexOf_arrayList(ARRAY_LIST *arrayList, int key);
+void indexOf_arrayList(ARRAY_LIST *arrayList, int key);
 
 /* Imprime um novo subarray no intervalo [beginIndex, endIndex[ */
 void sub_arrayList(ARRAY_LIST *arrayList, int beginIndex, int endIndex);
 
 /* Modifica um elmento do arrayList */
-//int set_arrayList(ARRAY_LIST *arrayList, int pos, ITEM *element);
+int set_arrayList(ARRAY_LIST *arrayList, int pos, int key, int value);
 
 /* Verifica se o arraylist está vazio */
 int isEmpty_arrayList(ARRAY_LIST *arrayList);
@@ -34,6 +34,9 @@ int isEmpty_arrayList(ARRAY_LIST *arrayList);
 /* Retorna o tamanho total do arraylist */
 int size_arrayList(ARRAY_LIST *arrayList);
 
+/* Remove um elemento do arrayList */
+int remove_arrayList(ARRAY_LIST *arrayList, int pos);
+  
 /* Desaloca a memória alocada pelo arraylist */
 int destroy_arrayList(ARRAY_LIST **arrayList);
 

@@ -3,48 +3,77 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <item.h>
+#include <string.h>
 #include <array_list.h>
 
 int main(int argc, char *argv[]) {
+  char *comando = (char *)malloc(32*sizeof(char));
+  int sair = 0;
+
+  /* Criação do arrayList */
   ARRAY_LIST *arrayList = new_arrayList();
-  ITEM *item = create_item(3,3);
-  ITEM *item2 = create_item(5,5);
-  ITEM *item3 = create_item(1,1);
-  ITEM *item4 = create_item(2,2);
-  ITEM *item5 = create_item(7,7);
 
-  add_arrayList(arrayList, item);
-  add_arrayList(arrayList, item2);
-  add_arrayList(arrayList, item3);
-  add_arrayList(arrayList, item4);
-  add_arrayList(arrayList, item5);
- 
-  printf("Tamanho total: %d\n", size_arrayList(arrayList));
-  
-  print_arrayList(arrayList);
-  
-  printf("Sub array [1,3[\n");
-  sub_arrayList(arrayList, 2, 4);
-  /*
- 
-  if (contains_arrayList(arrayList, 3)) {
-    printf("Busca ok!\n");
-  }
-  
-  printf("Index do item 1: %d\n", indexOf_arrayList(arrayList, 1));
+    do {
+    /* Lê-se o comando digitado pelo usuário */
+    scanf("%s", comando);
+    if (strcmp(comando, "sair") == 0) {
+      sair = 1; 
 
-  print_item(get_arrayList(arrayList, 0));
+    } else if (strcmp(comando, "tamanho") == 0) {
+      printf("%d\n", size_arrayList(arrayList));
+      
+
+    } else if (strcmp(comando, "add") == 0) {
+      int chave, valor;
+      scanf("%d %d", &chave, &valor);
+      add_arrayList(arrayList, create_item(chave, valor));
+      
+
+    } else if (strcmp(comando, "sub") == 0) {
+      int pos1, pos2;
+      scanf("%d %d", &pos1, &pos2);
+      sub_arrayList(arrayList, pos1, pos2);
+      
+
+    } else if (strcmp(comando, "set") == 0) {
+      int pos, chave, valor;
+      scanf("%d %d %d", &pos, &chave, &valor);
+      set_arrayList(arrayList, pos, chave, valor);
+      
+
+    } else if (strcmp(comando, "print") == 0) {
+      print_arrayList(arrayList);
+      
+
+    } else if (strcmp(comando, "contem") == 0) {
+      int chave;
+      scanf("%d", &chave);
+      printf("%d\n", contains_arrayList(arrayList, chave));
+      
+    } else if (strcmp(comando, "indice") == 0) {
+      int chave;
+      scanf("%d", &chave);
+      indexOf_arrayList(arrayList, chave);
+      
+    } else if (strcmp(comando, "vazia") == 0) {
+      printf("%d\n", isEmpty_arrayList(arrayList));
+      
+    } else if (strcmp(comando, "remover") == 0) {
+      int pos;
+      scanf("%d", &pos);
+      remove_arrayList(arrayList, pos);
+      
+    } else if (strcmp(comando, "get") == 0) {
+      int pos;
+      scanf("%d", &pos);
+      get_arrayList(arrayList, pos);
+    }
    
-  printf("\nSubstituições \n");
-  ITEM *item_sub = create_item(0,0);
-  set_arrayList(arrayList, 1, item_sub);
+  } while (!sair);
 
-  ITEM *item4 = create_item(2,2);
-  add_arrayList(arrayList, item4);
-  
-  print_arrayList(arrayList);
-  */
+  /* Ao sair do sistema, deve-se liberar toda a memória alocada */
   destroy_arrayList(&arrayList);
+  free(comando);
 
   return 0;
 }
