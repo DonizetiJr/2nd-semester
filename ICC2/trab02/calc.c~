@@ -1,0 +1,141 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+char *separador (char *str) {
+  int i, size = strlen(str), counter = 0;
+  char *novo = NULL;
+
+  for (i = 0; i < size; i++) {
+    if (str[i] >= 39 && str[i] <= 43 || str[i] > 96 && str[i] <= 112 || str[i] == 46) {
+      novo = (char *)realloc(novo, sizeof(char) * counter+1);
+      novo[counter++] = str[i];
+    }
+  }
+
+  return newstr;
+}
+
+int char2num(char *expressao, int a, int b) {
+  int i, num = 0;
+
+  for (i = a; i <= b; i++) {
+    int n = expressao[i] - '0';
+
+    if (n < 0 || n > 9) return -1; 
+    num = 10 * num + n;
+  }
+
+  return num;
+}
+
+int prioridade (char op) {
+  switch (op) {
+    case '-':
+    case '+': return 1;
+    case '/':
+    case '*': return 2;
+  }
+
+  return 0;
+}
+
+int calc (int op, int a, int b) {
+  switch (op) {
+  case '+': return a + b;
+  case '-': return a - b;
+  case '*': return a * b;
+  case '/':
+    if (b == 0) exit(1);
+    return a / b;
+  }
+
+  return 0;
+}
+
+int calc_recursion(char *expressao, int inicio, int fim) {
+  int i, meio = -1, parentesis_aberto = 0;
+
+  if (inicio > fim) return 0; 
+    
+  for (i = inicio; i <= fim; i++) {
+    int c = expressao[i];
+
+    if (c == '(') {
+      parentesis_aberto++;
+    } else if (c == ')') {
+      if (parentesis_aberto == 0) {
+	exit(1);
+      }
+
+      parentesis_aberto--;
+    } else if (parentesis_aberto == 0) {
+      int n = prec(c);
+
+      if (n && (meio < 0 || n < prec(expressao[meio]))) {
+	meio = i;
+      }
+    }
+  }
+
+  if (parentesis_aberto > 0) {
+    exit(1);
+  }
+
+  if (meio >= 0) {
+    int a = calc_recursion(expressao, inicio, meio - 1);
+    int b = calc_recursion(meio+1, fim);
+    int res = calc(expressao[meio], a, b);
+
+    printf("%d %c %d == %d\n", a, expressao[meio], b, res);
+    return res;
+  } else {
+    if (expressao[res] == '(' && expressao[fim] == ')') {
+      return calc_recursion(inicio + 1, fim -1);
+    }
+
+    int res = char2num(expressao, inicio, fim);
+
+    if (res < 0) {
+      exit(1);
+    } else {
+      return res;
+    }
+  }
+
+  return 0;
+}
+/*
+void infixa_posfixa (char *infix, int index_infix, char *posfix, int index_posfix) {
+  if (CASO BASE) {
+    
+  }
+
+  if (isdigit(infix[index_infix])) {
+
+    posfix[index_posfix] = infix[index_infix];
+    infixa_posfixa(infix, ++index_infix, posfix, ++index_posfix);
+    
+  } else if (infix[index_infix] == '(') {
+
+    infixa_posfixa(infix, ++index_infix, posfix, index_posfix);
+    
+  } else if (infix[index_infix] == ')') {
+
+    
+  } else {
+    
+  }
+}
+*/
+int main(int argc, char *argv[]) {
+  char *expressao = "2*(123-321)*(2+(3-4)-(3*2*2))/((12-2)/(1+1+1+1+0+1)";
+  
+  int result = calc_recursion(expressao, 0, strlen(expressao)-1);
+
+  printf("%d\n", result);
+
+  
+  return 0;
+}
