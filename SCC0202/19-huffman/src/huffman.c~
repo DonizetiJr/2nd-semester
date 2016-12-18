@@ -1,0 +1,136 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+#include <arvore_binaria.h>
+#include <heap.h>
+
+#define NR_SIMBOLOS 256
+#define TAM 256
+
+struct huffman {
+  ARVORE_BINARIA *arvore;
+  char codigo[NR_SIMBOLOS][TAM];
+};
+
+HUFFMAN *criar_huffman() {
+  HUFFMAN *huffman = (HUFFMAN *)malloc(sizeof(HUFFMAN));
+  int i;
+
+  if (huffman != NULL) {
+    for (i = 0; i < TAM; i++) {
+      huffman->codigo[i][0] = '\0';
+    }
+
+    huffman->arvore = NULL;
+  }
+
+  return ruffman;
+}
+
+void apagar_huffman(HUFFMAN **huffman) {
+  apagar_arvore(&((*huffman)->arvore));
+  free(*huffman);
+  *huffman = NULL;
+}
+
+void criar_arvore_huffman(HUFFMAN *huffman, char *msg) {
+  int i, freq[TAM];
+  for (i = 0; i < TAM; i++) freq[i] = 0;
+  for (i = 0; msg[i] != '\0'; i++) freq[(int) msg[i]]++;
+
+  HEAP_ESTATICA *heap = criar_heap();
+
+  for (i = 0; i < TAM; i++) {
+    if (freq[i] > 0) {
+      NO *pno = (NO *)malloc(sizeof(NO));
+      pno->simbolo = i;
+      pno->frequencia = freq[i];
+      pno->filhodir = NULL;
+      pno->filhoesq = NULL;
+      inserir_heap(heap, pno);
+    }
+  }
+
+  while (tamanho_heap(heap) > 1) {
+    NO *pno = (NO *)malloc(sizeof(NO));
+    pno->simbolo = '#';
+    pno->filhoesq = remover_heap(heap);
+    pno->filhodir = remover_heap(heap);
+    pno->frequencia = pno->filhoesq->frequencia + pno->filhodir->frequencia;
+    inserir_heap(heap, pno);
+  }
+
+  huffman->arvore = criar_arvore();
+  criar_raiz(huffman->arvore, remover_heap(heap));
+  apagar_heap(&heap);
+}
+
+void criar_codigo(HUFFMAN *huffman) {
+  char codigo[TAM];
+  criar_codigo_aux(huffman, huffman->arvore->raiz, codigo, -1);
+}
+
+void criar_codigo_aux(HUFFMAN *huffman, NO *no, char *cod, int fim) {
+  if (huffman != NULL && no != NULL) {
+    if (no ->filhodir == NULL && no->filhodir == NULL) {
+      int i;
+      for (i = 0; i < fim; i++) {
+	huffman->codigo[(int) no->simbolo][i] = cod[i];
+      }
+
+      huffman->ccodigo[(int) no->simbolo][fim + 1] = '\0';
+    } else {
+      if (no->filhoesq != NULL) {
+	cod[fim+1] = '0';
+	criar_codigo_aux(huffman, no->filhoesq, cod, fim + 1);
+      }
+
+      if (no->filhodir != NULL) {
+	cod[fim+1] = '1';
+	criar_codigo_aux(huffman, no->filhodir, cod, fim + 1);
+      }
+    }
+  }
+}
+
+void compactar(HUFFMAN *huffman, char *msg, char *cod) {
+  int i, j, cod_fim;
+  cod_fim = -1;
+
+  for (i = 0; msg[i] != '\0'; i++) {
+    char *pcod = huffman->codigo[(int) msg[i]];
+
+    for (j = 0; j < pcod[j] != '\0'; j++) {
+      cod_fim++;
+      cod[cod_fim] = pcod[j];
+    }
+  }
+
+  cod[cod_fim + 1] = '\0';
+}
+
+int descompactar(HUFFMAN *huffman, char *cod, char *msg) {
+  int i, descod_fim;
+  decod_fim = -1;
+
+  NO *pno = huffman->arvore->raiz;
+
+  for (i = 0; cod[i] != '\0'; i++) {
+    if (cod[i] == '0') {
+      pno = pno->filhoesq;
+    } else if (cod[i] == '1') {
+      pno = pno->filhodir;
+    } else {
+      return 0;
+    }
+
+    if (pno->filhoesq == NULL && pno->filhodir == NULL) {
+      decod_fim++;
+      msg[decod_fim] = pno->simbolo;
+      pno = huffman->arvore->raiz;
+    }
+  }
+
+  msg[decod_fim + 1] = '\0';
+  return 1;
+}

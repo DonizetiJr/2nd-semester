@@ -1,0 +1,51 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+char *readLine() {
+  int counter = 0;
+  char c;
+  char *string = NULL;
+
+  do {
+    c = fgetc(stdin);
+
+    string = (char *)malloc(sizeof(char)*(counter + 1));
+    string[counter++] = c;
+    
+   } while (c != NULL);
+  
+  string[counter - 1] = '\0';
+
+  return string;
+}
+
+int main(int argc, char *argv[]) {
+  int num_torneios, num_times, num_jogos;
+  char *name;
+  
+  scanf("%d", &num);
+  for (i = 0; i < num_torneios; i++) {
+    // Lẽ o nome do campeonato
+    name = readline();
+
+    free(name);
+    
+    // Lê a quantidade de times e seus nomes
+    scanf("%d", &num_times);
+    for (j = 0; j < num_times; j++) {
+      name = readLine();
+
+      free(name);
+     
+      // Lê a quantidade de jogos e seus resultados
+      scanf("%d", &num_jogos);
+      for (k = 0; k < num_jogos; k++) {
+	
+      }
+    }
+  }
+
+  print_resultados();
+  
+  return 0;
+}

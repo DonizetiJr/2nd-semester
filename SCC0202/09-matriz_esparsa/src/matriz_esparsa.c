@@ -38,7 +38,7 @@ MATRIZ_ESPARSA *criar_matriz(int linhas, int colunas) {
       }
     }
   }
-  
+
   return matriz;
 }
 
@@ -78,19 +78,19 @@ void set(MATRIZ_ESPARSA *matriz, int linha, int coluna, float valor) {
     } else {
       CELULA *pnovo = (CELULA *)malloc(sizeof(CELULA));
       if (pnovo != NULL) {
-	pnovo->linha = linha;
-	pnovo->coluna = coluna;
-	pnovo->valor = valor;
-	pnovo->direita = paux->direita;
-	paux->direita = pnovo;
+         pnovo->linha = linha;
+      	pnovo->coluna = coluna;
+      	pnovo->valor = valor;
+      	pnovo->direita = paux->direita;
+      	paux->direita = pnovo;
 
-	paux = matriz->colunas[coluna];
-	while (paux->abaixo != NULL && paux->abaixo->linha <= linha) {
-	  paux = paux->abaixo;
-	}
+      	paux = matriz->colunas[coluna];
+      	while (paux->abaixo != NULL && paux->abaixo->linha <= linha) {
+      	  paux = paux->abaixo;
+      	}
 
-	pnovo->abaixo = paux->abaixo;
-	paux->abaixo = pnovo;
+      	pnovo->abaixo = paux->abaixo;
+      	paux->abaixo = pnovo;
       }
     }
   }
@@ -98,7 +98,7 @@ void set(MATRIZ_ESPARSA *matriz, int linha, int coluna, float valor) {
 
 
 float get(MATRIZ_ESPARSA *matriz, int linha, int coluna) {
-  if (matriz != NULL && linha < matriz->nr_linhas && coluna < matriz->nr_colunas) { 
+  if (matriz != NULL && linha < matriz->nr_linhas && coluna < matriz->nr_colunas) {
     CELULA *paux = matriz->linhas[linha];
     while (paux->direita != NULL && paux->direita->coluna <= coluna) {
       paux = paux->direita;
@@ -115,7 +115,7 @@ void imprimir_matriz(MATRIZ_ESPARSA *matriz) {
   if (matriz != NULL) {
     int i, j;
     CELULA *paux = matriz->linhas[0];
-    
+
     for (i = 0; i < matriz->nr_linhas; i++) {
       for (j = 0; j < matriz->nr_colunas; j++) {
 	if (paux->direita->linha == i && paux->direita->coluna == j) {
